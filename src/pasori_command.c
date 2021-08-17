@@ -36,6 +36,7 @@ struct tag_pasori
 #define PASORIUSB_PRODUCT_S310 0x006c
 #define PASORIUSB_PRODUCT_S320 0x01bb
 #define PASORIUSB_PRODUCT_S330 0x02e1
+#define PASORIUSB_PRODUCT_S380 0x06c3
 
 #define TIMEOUT 1000
 
@@ -749,7 +750,8 @@ open_usb(pasori *pp)
     if (desc.idVendor == PASORIUSB_VENDOR && 
 	(desc.idProduct == PASORIUSB_PRODUCT_S310 ||
 	 desc.idProduct == PASORIUSB_PRODUCT_S320 ||
-	 desc.idProduct == PASORIUSB_PRODUCT_S330)) {
+	 desc.idProduct == PASORIUSB_PRODUCT_S330 ||
+	 desc.idProduct == PASORIUSB_PRODUCT_S380)) {
 #ifdef DEBUG_USB
       Log("Device is found %04x:%04x\n", desc.idVendor, desc.idProduct);	/* debug */
 #endif
@@ -771,6 +773,9 @@ open_usb(pasori *pp)
     break;
   case PASORIUSB_PRODUCT_S330:
     pp->type = PASORI_TYPE_S330;
+    break;
+  case PASORIUSB_PRODUCT_S380:
+    pp->type = PASORI_TYPE_S380;
     break;
   default:
     return PASORI_ERR_TYPE;
@@ -817,7 +822,8 @@ open_usb(pasori *pp)
       if (dev->descriptor.idVendor == PASORIUSB_VENDOR &&
 	  (dev->descriptor.idProduct == PASORIUSB_PRODUCT_S310 ||
 	   dev->descriptor.idProduct == PASORIUSB_PRODUCT_S320 ||
-	   dev->descriptor.idProduct == PASORIUSB_PRODUCT_S330)) {
+	   dev->descriptor.idProduct == PASORIUSB_PRODUCT_S330 ||
+	   dev->descriptor.idProduct == PASORIUSB_PRODUCT_S380)) {
 #ifdef DEBUG_USB
 	Log("Device is found %04x:%04x\n", dev->descriptor.idVendor, dev->descriptor.idProduct);	/* debug */
 #endif
@@ -838,6 +844,9 @@ open_usb(pasori *pp)
     break;
   case PASORIUSB_PRODUCT_S330:
     pp->type = PASORI_TYPE_S330;
+    break;
+  case PASORIUSB_PRODUCT_S380:
+    pp->type = PASORI_TYPE_S380;
     break;
   default:
     return PASORI_ERR_TYPE;
